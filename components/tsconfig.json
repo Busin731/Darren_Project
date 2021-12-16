@@ -1,0 +1,36 @@
+{
+  "compilerOptions": {
+    "allowSyntheticDefaultImports": true,
+    "declaration": false,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "lib": [
+      "es6",
+      "dom"
+    ],
+    "module": "es6",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "sourceMap": true,
+    "skipLibCheck": true,
+    "target": "es6",
+    "jsx": "react",
+    "baseUrl": ".",
+    "paths": {
+      "*": [
+        "../core/app/javascript/*",
+        "../core/node_modules/*",
+        "../engines/core-jobs/app/javascript/*",
+        "../engines/capgains/app/javascript/*",
+        "node_modules/*"
+      ]
+    }
+  },
+  "exclude": [
+    "**/*.spec.ts",
+    "node_modules",
+    "vendor",
+    "public"
+  ],
+  "compileOnSave": false
+}
