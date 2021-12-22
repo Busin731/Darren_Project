@@ -1,9 +1,10 @@
 import React from "react";
 
-import { Admin, Resource, EditGuesser } from "react-admin";
+import { Admin, Resource } from "react-admin";
 import jsonServerProvider from "ra-data-json-server";
-import { PostCreate, PostEdit, PostList } from "./posts";
-import { UserList } from "./users";
+import { PostCreate, PostEdit, PostList } from "./posts/posts";
+import { CommentCreate, CommentEdit, CommentList } from "./comments/comments";
+import { UserList, UserEdit } from "./users/users";
 
 const dataProvider = jsonServerProvider("https://jsonplaceholder.typicode.com");
 const App = () => (
@@ -14,7 +15,17 @@ const App = () => (
       create={PostCreate}
       edit={PostEdit}
     />
-    <Resource name="users" list={UserList} edit={EditGuesser} />
+    <Resource 
+      name="users" 
+      list={UserList} 
+      edit={UserEdit} 
+    />
+    <Resource 
+      name="comments"
+      list={CommentList}
+      create={CommentCreate}
+      edit={CommentEdit}
+    />
   </Admin>
 );
 

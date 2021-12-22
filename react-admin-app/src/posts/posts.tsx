@@ -4,14 +4,23 @@ import {
   Datagrid,
   TextField,
   ReferenceField,
-  EditButton,
   Edit,
   SimpleForm,
   ReferenceInput,
   SelectInput,
   TextInput,
-  Create,
+  Create
 } from "react-admin";
+import { Aside } from "../comments/aside";
+import { makeStyles } from '@material-ui/core/styles';
+
+const useStyles = makeStyles({
+  card: {
+      height: '100%',
+      position: 'sticky',
+      top: '10px'
+  },
+});
 
 const postFilters = [
   <TextInput source="q" label="Search" alwaysOn />,
@@ -34,7 +43,10 @@ export const PostList: React.FC = (props) => (
 );
 
 export const PostEdit: React.FC = (props) => (
-  <Edit {...props}>
+  <Edit {...props} 
+    aside={<Aside />}
+    classes={useStyles()}
+  >
     <SimpleForm>
       <ReferenceInput source="userId" reference="users">
         <SelectInput optionText="name" />
@@ -44,7 +56,7 @@ export const PostEdit: React.FC = (props) => (
       <TextInput multiline source="body" />
     </SimpleForm>
   </Edit>
-);
+)
 
 export const PostCreate: React.FC = (props) => (
   <Create {...props}>
