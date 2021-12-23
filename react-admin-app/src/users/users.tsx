@@ -7,7 +7,9 @@ import {
   EmailField,
   SimpleForm,
   Edit,
-  TextInput
+  TextInput,
+  EditButton,
+  ShowButton
 } from "react-admin";
 import { Aside } from "../comments/aside";
 import { makeStyles } from '@material-ui/core/styles';
@@ -22,7 +24,7 @@ const useStyles = makeStyles({
 
 export const UserList: React.FC = (props) => (
   <List {...props}>
-    <Datagrid rowClick="edit">
+    <Datagrid>
       <TextField source="id" />
       <TextField source="name" />
       <TextField source="username" />
@@ -31,6 +33,8 @@ export const UserList: React.FC = (props) => (
       <TextField source="phone" />
       <TextField source="website" />
       <TextField source="company.name" />
+      <EditButton />
+      <ShowButton />
     </Datagrid>
   </List>
 );
