@@ -2,10 +2,11 @@ import React from 'react';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
-import TextField from '@material-ui/core/TextField';
+// import TextField from '@material-ui/core/TextField';
 import { makeStyles } from '@material-ui/core/styles';
 import Avatar from '../utilities/Avatar';
-import Button from '@material-ui/core/Button';
+import Card from '@material-ui/core/Card';
+import { SaveButton, SimpleForm, TextInput } from 'react-admin';
 
 interface CommentItemProps {
     comment: any;
@@ -13,7 +14,6 @@ interface CommentItemProps {
 
 const useStyles = makeStyles ({
     truncate: {
-        width: 200,
         whiteSpace: 'nowrap',
         overflow: 'hidden',
         textOverflow: 'ellipsis',
@@ -23,7 +23,7 @@ const useStyles = makeStyles ({
 const CommentItem = ({ comment }: CommentItemProps) => {
     const classes = useStyles();
     return (
-        <>
+        <Card style={{marginTop: '10px'}}>
             <ListItem>
                 <ListItemAvatar>
                     <Avatar user={comment.author} />
@@ -32,20 +32,27 @@ const CommentItem = ({ comment }: CommentItemProps) => {
                     primary={
                         <div className={classes.truncate}>
                             <strong>
-                                {comment.author ? comment.author.name : 'Anonymous'}
+                                {comment.email ? comment.email : 'Anonymous'}
                             </strong>{' '}
-                            {/* {comment.label} */}
+                            {comment.label}
                         </div>
                     }
-                    // secondary={new Date(comment.createdAt).toLocaleString()}
-                />            
-            </ListItem><br/>
-            <TextField multiline rows={1} placeholder={"write comment"} variant="outlined" style={{width: '270px', marginBottom: '10px'}}/><br/>
-            <div>
+                    secondary={new Date(comment.created_at).toLocaleString()}
+                />
+            </ListItem>
+            <ListItem>
+                <ListItemText primary={
+                    <div className={classes.truncate}>{comment.body}</div>
+                }/>
+            </ListItem>
+        </Card>
+            
+            // <TextInput multiline source='body' />
+            /* <TextField multiline rows={1} placeholder={"write comment"} variant="outlined" style={{width: '270px', marginBottom: '10px'}}/><br/> */
+            /* <div>
                 <Button size='small' variant="contained" color="primary">Save</Button>&nbsp;&nbsp;
                 <Button size='small' variant="outlined" color="primary">Cancel</Button>
-            </div>
-        </>
+            </div> */
     )
 };
 

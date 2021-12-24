@@ -23,18 +23,17 @@ const CommentDrawerList = (props: CommentDrawerListProps) => {
     const { data, ids, loading, error } = useGetList(
         'comments',
         { page: 1, perPage: 10 },
-        { field: 'id', order: 'DESC'},
+        { field: 'created_at', order: 'DESC'},
         { postId: props.postId}
     );
     if (loading) { return <p>Loading...</p>; }
     if (error) { return <p>ERROR</p>; }
     return (
         <Box m="0 0 1em 1em">
-            {comments.map(comment => {
-            return (
-                <CommentItem comment={comment}/>
-            )
-        })}
+            {ids.map(id => {
+                let record = data[id];
+                return <CommentItem key={id} comment={record}/>
+            })}
         </Box>
     )
 }
