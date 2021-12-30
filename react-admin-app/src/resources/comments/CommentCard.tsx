@@ -77,6 +77,7 @@ const CommentCard = (props: CommentCardProps) => {
     const handleCancel = (event: any) => {
 		setComment(record.body);
 		writing(false);
+        setStatus(false);
 	};
 
     const handleChange = (event: any) => {
@@ -175,7 +176,7 @@ const CommentCard = (props: CommentCardProps) => {
                     )}
                 </CardContent>
                 <CardActions>
-                    { (isEdit || isCreate) && (
+                    { (isEdit || isCreate )? (
                         <>
                             { isEdit &&
                                 <Button
@@ -207,7 +208,7 @@ const CommentCard = (props: CommentCardProps) => {
                                 <>Cancel</>
                             </Button>
                         </>
-                        )
+                        ) : null
                     }
                 </CardActions>
             </Card>
