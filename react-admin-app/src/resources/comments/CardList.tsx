@@ -2,6 +2,8 @@ import { useGetList } from "react-admin";
 import CommentCard from "./CommentCard";
 import { CardListProps } from "./types";
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
+import { useSelector } from 'react-redux'
+import { CommentState } from "../../admins/types";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -21,9 +23,13 @@ const CardList = (props: CardListProps) => {
         { field: "createdAt", order: "DESC" },
         { resourceId, resource }
     );
+    const isCreate = useSelector((state: CommentState) => state.isCreate)
+
     return (
         <div className={classes.listContainer}>
-            <CommentCard id={-1} status="create" record={{resource, resourceId}} />
+            {isCreate === "true" && (
+                <CommentCard id={-1} status="create" record={{resource, resourceId}} />
+            )}
             {ids.map((id: any, index: number) => {
                     const record = data[id];
                     return <CommentCard id={id} key={index} status="rud" record={record} />

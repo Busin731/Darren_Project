@@ -16,6 +16,8 @@ import { Button, useDelete, useNotify, useUpdate, useCreate } from "react-admin"
 import CardActions from "@material-ui/core/CardActions";
 import TextField from "@material-ui/core/TextField";
 import { useHistory } from "react-router-dom";
+import { useDispatch } from 'react-redux'
+import { commentAdd } from "../../admins/actions";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -56,6 +58,7 @@ const CommentCard = (props: CommentCardProps) => {
 	const [isChanged, writing] = useState(false);  
     const history = useHistory();  
     const notify = useNotify();
+    const dispatch = useDispatch();
 
     useEffect(() => {
 		setComment(record.body);
@@ -76,6 +79,7 @@ const CommentCard = (props: CommentCardProps) => {
 
     const handleCancel = (event: any) => {
 		setComment(record.body);
+        dispatch(commentAdd("false"));
 		writing(false);
         setStatus(false);
 	};
@@ -138,7 +142,7 @@ const CommentCard = (props: CommentCardProps) => {
                             R
                         </Avatar>
                     }
-                    action={
+                    action={ !isCreate &&
                         <IconButton aria-label="settings" onClick={handleClick}>
                             <MoreVertIcon />
                         </IconButton>
