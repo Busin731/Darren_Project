@@ -3,8 +3,7 @@ import {
     Datagrid,
     TextField,
     EmailField,
-    ListProps,
-    EditButton,
+    ListProps
 } from "react-admin";
 import Resource from "./Resource";
 import ActionButton from "../ActionButton";

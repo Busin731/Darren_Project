@@ -3,10 +3,6 @@ import { Identifier, useDataProvider, useGetList, useNotify } from "react-admin"
 import CommentCard from "./CommentCard";
 import { CardListProps } from "./types";
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
-import { useSelector } from 'react-redux'
-import { CommentState } from "../../admins/types";
-import { commentAdd } from "../../admins/actions";
-import { debug } from "console";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -27,7 +23,6 @@ const CardList = (props: CardListProps) => {
     const [insertCount, setInsertCount] = useState<number>(0);
     const [insertIds, setInsertIds] = useState<Identifier[]>([]);
     const [insertData, setInsertData] = useState<any>([]);
-    const isCreate = useSelector((state: CommentState) => state.isCreate)
     const dataProvider = useDataProvider();
     const notify = useNotify();
     const { data, ids, loaded } = useGetList(
@@ -83,10 +78,8 @@ const CardList = (props: CardListProps) => {
             setIds(ids);
             setFirst(false);
         }
-    },[loaded])
+    }, [data, ids, loaded, isFirst])
 
-    let newCardNumber = -1;
-	let newTotal = card_flags.filter(item => item === true).length;
 
     return (
         <div className={classes.listContainer}>
@@ -111,7 +104,6 @@ const CardList = (props: CardListProps) => {
             })}
 
             {card_flags.map((flag, index) => {
-                newCardNumber++;
                 if (card_flags[index] === false)
                     return (
                         <Fragment

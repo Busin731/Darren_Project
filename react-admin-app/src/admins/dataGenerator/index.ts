@@ -2,7 +2,6 @@ import { Record } from "react-admin";
 import users from "./users.json";
 import posts from "./posts.json";
 import generateComments from "./comments";
-import finalize from "./finalize";
 
 export interface Db {
     users: Record[];
