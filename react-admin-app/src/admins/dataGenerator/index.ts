@@ -15,7 +15,7 @@ const dataGenerator = (): Db => {
     db.users = users;
     db.posts = posts;
     db.comments = generateComments(db);
-    finalize(db);
+    // finalize(db);
     return db;
 };
 

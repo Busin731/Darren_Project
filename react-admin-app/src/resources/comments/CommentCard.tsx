@@ -8,7 +8,7 @@ import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import { red } from '@material-ui/core/colors';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
-import { CommentCardProps } from './types';
+import Divider from '@material-ui/core/Divider';
 import { Fragment } from 'react';
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
@@ -28,6 +28,10 @@ const useStyles = makeStyles((theme: Theme) =>
                 margin: theme.spacing(1),
                 width: "34ch",
             },
+            boxShadow: "none"
+        },
+        dividerFullWidth: {
+            margin: `5px 0 0 ${theme.spacing(2)}px`,
         },
         media: {
             height: 0,
@@ -49,9 +53,16 @@ const useStyles = makeStyles((theme: Theme) =>
     }),
 );
 
-const CommentCard = (props: CommentCardProps) => {
+const CommentCard = (props: any) => {
     const classes = useStyles();
-    const { record, status } = props;
+    const {
+        id, 
+        record, 
+        status, 
+        card_index,
+        handleCreate,
+        handleDelete
+     } = props;
     const [anchorEl, setAnchorEl] = useState(null);
 	const [isEdit, setStatus] = useState(false);
 	const [comment, setComment] = useState("");
@@ -90,46 +101,40 @@ const CommentCard = (props: CommentCardProps) => {
 		writing(true);
 	};
 
-    const [create] = useCreate("comments", {
-        body: comment,
-        date: new Date().toISOString(),
-        email: "admin@gmail.com",
-        resource: record.resource,
-        resourceId: record.resourceId,
-    }, {
-        onSuccess: () => {
-            notify("Created successfully");
-            setStatus(false);
-            setAnchorEl(null);
-            history.goBack();
-        },
-        onFailure: () => {
-            setStatus(false);
-        }
-    });
-    const [update] = useUpdate('comments', record.id, { body: comment }, record, {
-        onSuccess: () => {
-            notify("Updated successfully");
-            setStatus(false);
-            setAnchorEl(null);
-            history.goBack();
-        },
-        onFailure: () => {
-            setStatus(false);
-        }
-    });
-    const [deleteOne] = useDelete("comments", record.id, record, {
-        onSuccess: () => {
-            notify("Deleted successfully");
-            setAnchorEl(null);
-            setStatus(false);
-            history.goBack();
-        },
-        onFailure: () => {
-            setStatus(false);
+    const handleDeleting = (event: any) => {
+        handleDelete({ id, status, card_index });
+    }
+
+    const handleCreating = (event: any) => {
+        handleCreate({
+            body: comment,
+            createdAt: new Date().toISOString(),
+            email: "admin@gmail.com",
+            resource: record.resource,
+            resourceId: record.resourceId
+        })
+
+        setComment("");
+    }
+
+
+    const [update] = useUpdate(
+        'comments', 
+            record.id, 
+            { body: comment }, 
+            record,
+            {
+            onSuccess: () => {
+                setStatus(false);
+                setAnchorEl(null);
+                notify("Updated successfully");
+            },
+            onFailure: () => {
+                setStatus(false);
         }
     });
 
+    
     const isCreate = status === "create";
     const author = "admin@gmail.com";
 
@@ -150,13 +155,9 @@ const CommentCard = (props: CommentCardProps) => {
                     title={ isCreate ? author : record.email }
                     subheader={ !isCreate ? new Date(record.createdAt).toLocaleDateString() : "" }
                 />
-                {/* <CardMedia
-                    className={classes.media}
-                    image="/static/images/cards/paella.jpg"
-                    title="Paella dish"
-                /> */}
+                
                 <CardContent>
-                    { isCreate && 
+                    { isCreate ? (
                         <TextField
                             multiline
                             maxRows={5}
@@ -164,20 +165,22 @@ const CommentCard = (props: CommentCardProps) => {
                             onChange={handleChange}
                             variant="outlined"
                         />
-                    }
-                    { !isEdit ? (
-                            <Typography variant="body2" color="textSecondary" component="p">
-                                {record.body}
-                            </Typography>
                         ) : (
-                            <TextField
-                                multiline
-                                maxRows={5}
-                                value={comment}
-                                onChange={handleChange}
-                                variant="outlined"
-                            />
-                    )}
+                            !isEdit ? (
+                                    <Typography variant="body2" color="textSecondary" component="p">
+                                        {comment}
+                                    </Typography>
+                                ) : (
+                                    <TextField
+                                        multiline
+                                        maxRows={5}
+                                        value={comment}
+                                        onChange={handleChange}
+                                        variant="outlined"
+                                    />
+                            )
+                        )
+                    }
                 </CardContent>
                 <CardActions>
                     { (isEdit || isCreate )? (
@@ -199,7 +202,7 @@ const CommentCard = (props: CommentCardProps) => {
                                     color="primary"
                                     variant="contained"
                                     disabled={!isChanged}
-                                    onClick={create}
+                                    onClick={handleCreating}
                                 >
                                     <>Comment</>
                                 </Button>
@@ -216,6 +219,7 @@ const CommentCard = (props: CommentCardProps) => {
                     }
                 </CardActions>
             </Card>
+            <Divider variant="middle" />
             <Menu
 				anchorEl={anchorEl}
 				keepMounted
@@ -224,7 +228,7 @@ const CommentCard = (props: CommentCardProps) => {
 				<MenuItem onClick={handleEdit}>
 					Edit
 				</MenuItem>
-				<MenuItem onClick={deleteOne}>
+				<MenuItem onClick={handleDeleting}>
 					Delete
 				</MenuItem>
 			</Menu>

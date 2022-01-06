@@ -4,19 +4,22 @@ import {
     TextField,
     EmailField,
     ListProps,
-    EditButton
+    EditButton,
 } from "react-admin";
-import LinkToRelatedResource from "./LinkToRelatedResource";
+import Resource from "./Resource";
+import ActionButton from "../ActionButton";
 
-const CommentList = (props: ListProps) => (
-    <List {...props}>
-        <Datagrid rowClick="show">
-            <EmailField source="email" label="Author" />
-            <TextField source="body" label="Comment" />
-            <EditButton />
-            <LinkToRelatedResource />
-        </Datagrid>
-    </List>
-);
+const CommentList = (props: ListProps) => {
+    return (
+        <List {...props}>
+                <Datagrid >
+                    <EmailField source="email" label="Author" />
+                    <Resource/>
+                    <TextField source="body" label="Comment" />
+                    <ActionButton/>
+                </Datagrid>
+            </List>
+    )
+}
 
 export default CommentList;
