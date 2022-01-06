@@ -7,8 +7,17 @@ import {
     EmailField
 } from "react-admin";
 
+const CommentsTitle = (props: any) => {
+    const { record } = props;
+    return record ? (
+        <span>
+            {"Comments"}
+        </span>
+    ) : null;
+  };
+
 const CommentShow = (props: ShowProps) => (
-    <Show {...props}>
+    <Show title={<CommentsTitle/>} {...props}>
         <SimpleShowLayout>
             <TextField source="id" />
             <EmailField source="email" label="Author" />

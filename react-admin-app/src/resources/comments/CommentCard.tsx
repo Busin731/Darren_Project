@@ -15,14 +15,11 @@ import MenuItem from "@material-ui/core/MenuItem";
 import { Button, useNotify, useUpdate } from "react-admin";
 import CardActions from "@material-ui/core/CardActions";
 import TextField from "@material-ui/core/TextField";
-import { useDispatch } from 'react-redux'
-import { commentAdd } from "../../admins/actions";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         root: {
-            maxWidth: 345,
-            margin: "10px auto",
+            margin: 3,
             "& .MuiTextField-root": {
                 margin: "0 auto",
                 width: "100%",
@@ -67,7 +64,6 @@ const CommentCard = (props: any) => {
 	const [comment, setComment] = useState("");
 	const [isChanged, writing] = useState(false);  
     const notify = useNotify();
-    const dispatch = useDispatch();
 
     useEffect(() => {
 		setComment(record.body);
@@ -88,7 +84,6 @@ const CommentCard = (props: any) => {
 
     const handleCancel = (event: any) => {
 		setComment(record.body);
-        dispatch(commentAdd("false"));
 		writing(false);
         setStatus(false);
 	};
@@ -142,7 +137,7 @@ const CommentCard = (props: any) => {
                 <CardHeader
                     avatar={
                         <Avatar aria-label="author" className={classes.avatar}>
-                            R
+                            {status === "insert" ? "ME" : record?.email?.slice(0, 2).toUpperCase() || 'ME' }
                         </Avatar>
                     }
                     action={ !isCreate &&

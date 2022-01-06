@@ -11,7 +11,16 @@ import {
   Show,
   SimpleShowLayout
 } from "react-admin";
-import DrawerList from "./resources/comments/DrawerList";
+import DrawerList from "../comments/DrawerList";
+
+const UsersTitle = (props: any) => {
+  const { record } = props;
+  return record ? (
+      <span>
+          {"Users"}
+      </span>
+  ) : null;
+};
 
 export const UserList: React.FC = (props) => (
   <List {...props}>
@@ -29,7 +38,7 @@ export const UserList: React.FC = (props) => (
 );
 
 export const UserEdit: React.FC = props => (
-  <Edit {...props}>
+  <Edit title={<UsersTitle/>} {...props}>
       <SimpleForm>
           <TextField source="id" />
           <TextInput source="name" />
@@ -45,7 +54,7 @@ export const UserEdit: React.FC = props => (
 
 export const UserShow: React.FC = (props: any) => (
   <Fragment>
-    <Show {...props}>
+    <Show title={<UsersTitle/>} {...props}>
         <SimpleShowLayout>
             <TextField source="id" />
             <TextField source="name" />
@@ -60,3 +69,6 @@ export const UserShow: React.FC = (props: any) => (
     <DrawerList resource="user" resourceId={props.id}/>
   </Fragment>
 );
+
+
+

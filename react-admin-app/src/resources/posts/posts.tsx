@@ -13,7 +13,16 @@ import {
   Create,
   SimpleShowLayout
 } from "react-admin";
-import DrawerList from "./resources/comments/DrawerList";
+import DrawerList from "../comments/DrawerList";
+
+const PostsTitle = (props: any) => {
+  const { record } = props;
+  return record ? (
+      <span>
+          {"Posts"}
+      </span>
+  ) : null;
+};
 
 const postFilters = [
   <TextInput source="q" label="Search" alwaysOn />,
@@ -36,7 +45,7 @@ export const PostList: React.FC = (props) => (
 );
 
 export const PostEdit: React.FC = (props) => (
-  <Edit {...props}>
+  <Edit title={<PostsTitle/>} {...props}>
     <SimpleForm>
       <TextField source="id" />
       <ReferenceInput source="userId" reference="users">
@@ -62,7 +71,7 @@ export const PostCreate: React.FC = (props) => (
 
 export const PostShow: React.FC = (props: any) => (
     <Fragment>
-      <Show {...props}>
+      <Show title={<PostsTitle/>} {...props}>
           <SimpleShowLayout>
               <TextField source="id" />
               <ReferenceField source="userId" reference="users">
@@ -75,3 +84,5 @@ export const PostShow: React.FC = (props: any) => (
       <DrawerList resource="post" resourceId={props.id} />
     </Fragment>
 )
+
+

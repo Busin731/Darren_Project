@@ -8,8 +8,17 @@ import {
     EmailField
 } from "react-admin";
 
+const CommentsTitle = (props: any) => {
+    const { record } = props;
+    return record ? (
+        <span>
+            {"Comments"}
+        </span>
+    ) : null;
+  };
+
 const CommentEdit = (props: EditProps) => (
-    <Edit {...props}>
+    <Edit title={ <CommentsTitle/> } {...props}>
         <SimpleForm>
             <TextField source="id" />
             <EmailField source="email" label="Author" />
