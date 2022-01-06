@@ -2,10 +2,6 @@ import { makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
-import IconButton from "@material-ui/core/IconButton";
-import AddCommentOutlinedIcon from "@material-ui/icons/AddCommentOutlined";
-import {useDispatch} from "react-redux"; 
-import { commentAdd } from "../../admins/actions";
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -39,11 +35,6 @@ const useStyles = makeStyles((theme) => ({
 
 export default function CommentTopBar() {
 	const classes = useStyles();
-	const dispatch = useDispatch();
-
-	const handleClick = (event: any) => {
-		dispatch(commentAdd("true"));
-	};
 
 	return (
 		<div className={classes.root}>
@@ -60,13 +51,7 @@ export default function CommentTopBar() {
 							Comments
 						</Typography>
 					</div>
-					<IconButton
-						edge="start"
-						color="inherit"
-						aria-label="menu"
-						onClick={handleClick}>
-						<AddCommentOutlinedIcon />
-					</IconButton>
+					
 				</Toolbar>
 			</AppBar>
 		</div>

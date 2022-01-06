@@ -12,10 +12,9 @@ import Divider from '@material-ui/core/Divider';
 import { Fragment } from 'react';
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
-import { Button, useDelete, useNotify, useUpdate, useCreate } from "react-admin";
+import { Button, useNotify, useUpdate } from "react-admin";
 import CardActions from "@material-ui/core/CardActions";
 import TextField from "@material-ui/core/TextField";
-import { useHistory } from "react-router-dom";
 import { useDispatch } from 'react-redux'
 import { commentAdd } from "../../admins/actions";
 
@@ -25,8 +24,8 @@ const useStyles = makeStyles((theme: Theme) =>
             maxWidth: 345,
             margin: "10px auto",
             "& .MuiTextField-root": {
-                margin: theme.spacing(1),
-                width: "34ch",
+                margin: "0 auto",
+                width: "100%",
             },
             boxShadow: "none"
         },
@@ -67,7 +66,6 @@ const CommentCard = (props: any) => {
 	const [isEdit, setStatus] = useState(false);
 	const [comment, setComment] = useState("");
 	const [isChanged, writing] = useState(false);  
-    const history = useHistory();  
     const notify = useNotify();
     const dispatch = useDispatch();
 
