@@ -16,7 +16,7 @@ const CommentList = (props: ListProps) => {
                 <EmailField source="email" label="Author" />
                 <Resource/>
                 <TextField source="body" label="Comment" />
-                <DateField source="createdAt" label="At" />
+                <DateField source="createdAt" label="Date" />
                 <ActionButton/>
             </Datagrid>
         </List>

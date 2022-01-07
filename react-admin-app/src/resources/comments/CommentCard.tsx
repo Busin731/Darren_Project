@@ -46,6 +46,9 @@ const useStyles = makeStyles((theme: Theme) =>
         avatar: {
             backgroundColor: red[500],
         },
+        actions: {
+            paddingLeft: 18,
+        }
     }),
 );
 
@@ -175,7 +178,7 @@ const CommentCard = (props: any) => {
                         )
                     }
                 </CardContent>
-                <CardActions>
+                <CardActions className={classes.actions}>
                     { (isEdit || isCreate )? (
                         <>
                             { isEdit &&
