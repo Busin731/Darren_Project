@@ -29,11 +29,12 @@ const comments = (db: Db) => {
         return {
             id,
             resource,
-            resourceId,         // Resource Id { postId | userId | -1 }
+            resourceId,         // Resource Id { postId | userId | -1 }/
             email: user2.email, // Auther
+            userId:user2.id, // Author
             body: post2.body,
             childrens: id,       // CSV 1, 3, 33, 42,
-            createdAt: date.toISOString()
+            date: date.toISOString()
         }
     })
 }

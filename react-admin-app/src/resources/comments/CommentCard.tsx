@@ -104,7 +104,8 @@ const CommentCard = (props: any) => {
     const handleCreating = (event: any) => {
         handleCreate({
             body: comment,
-            createdAt: new Date().toISOString(),
+            date: new Date().toISOString(),
+            userId: "1",
             email: "admin@gmail.com",
             resource: record.resource,
             resourceId: record.resourceId
@@ -149,7 +150,7 @@ const CommentCard = (props: any) => {
                         </IconButton>
                     }
                     title={ isCreate ? author : record.email }
-                    subheader={ !isCreate ? new Date(record.createdAt).toLocaleDateString() : "" }
+                    subheader={ !isCreate ? new Date(record.date).toLocaleDateString() : "" }
                 />
                 
                 <CardContent>
