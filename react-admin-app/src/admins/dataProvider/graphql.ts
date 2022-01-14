@@ -18,6 +18,9 @@ const getGqlResource = (resource: string) => {
         case 'comments':
             return 'Comment';
 
+        case 'notifications':
+            return 'Notification';
+
         default:
             throw new Error(`Unknown resource ${resource}`);
     }

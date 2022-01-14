@@ -28,4 +28,7 @@ export const randomDate = (minDate?: Date, maxDate?: Date) => {
 export const randomFloat = (min: any, max: any) =>
     parseFloat(faker.datatype.number({ min, max, precision: 0.01 }).toFixed(2));
 
+export const randomInt = (min: any, max: any) =>
+    parseFloat(faker.datatype.number({ min, max, precision: 1 }).toFixed(0));
+
 export const uniqueArray = (value: any, index: any, self: string | any[]) => self.indexOf(value) === index
