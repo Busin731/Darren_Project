@@ -6,18 +6,23 @@ import {
      RichTextField,
      ListProps
 } from 'react-admin';
+import RunField from './RunField';
+import NotificationAction from './NotificationAction';
 
 const NotificationList = (props : ListProps) => {
     return(
        <List
             {...props}
             sort={{ field: 'date', order: 'DESC' }}
+           
        >
-            <Datagrid>
-                <TextField source='id' label={'ID'}/>
-                <TextField source='scope' label={'SCOPE'}/>
-                <RichTextField source='body' label={'NOTIFICATION'}/>
-                <TextField source='status' label={'STATUS'}/>
+            <Datagrid >
+                <TextField source='id' label={'Id'}/>
+                <TextField source='scope' label={'Scope'}/>
+                <RichTextField  source='body' label={'Notifications'}/>
+                <TextField source='status' label={'Status'}/>
+                <RunField/>
+                <NotificationAction/>
             </Datagrid>
        </List>
     )
