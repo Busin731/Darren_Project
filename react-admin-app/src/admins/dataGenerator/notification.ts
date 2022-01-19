@@ -6,7 +6,7 @@ const notifications = (db: Db) => {
     return Array.from(Array(100).keys()).map(id => {
         const post = random.arrayElement<any>(db.posts);
         const status = weightedArrayElement(
-            ['Draft', 'Queued', 'Published', 'Expired'],
+            ['DRAFT', 'QUEUED', 'PUBLISHED', 'EXPIRED'],
             [3,3,3,3]
         );
         const scope = weightedArrayElement(
@@ -15,6 +15,7 @@ const notifications = (db: Db) => {
         );
         const title = post.title;
         const body = post.body;
+        const readCount = randomInt(300, 1000);
         let category = weightedArrayElement(
             ['animals', 'beard', 'business', 'cars', 'city', 'flowers', 'food', 'nature', 'people', 'sports', 'tech', 'travel'],
             [3,3,3,3,3,3,3,3,3,3,3]
@@ -29,6 +30,7 @@ const notifications = (db: Db) => {
             scope,
             status,
             title,
+            readCount,
             body,
             image,
             publishAt,
