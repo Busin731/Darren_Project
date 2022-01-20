@@ -6,11 +6,12 @@ import comments from "./resources/comments";
 import notifications from "./resources/notifications";
 import dataProviderFactory from "./admins/dataProvider";
 
-// const dataProvider = jsonServerProvider("https://jsonplaceholder.typicode.com");
+const dataProvider = dataProviderFactory(process.env.REACT_APP_DATA_PROVIDER || "");
+
 const App = () => (
   <Admin
     title="CORE Platform"
-    dataProvider={dataProviderFactory(process.env.REACT_APP_DATA_PROVIDER || "")}
+    dataProvider={dataProvider}
   >
     <Resource name="posts" {...posts} />
     <Resource name="users" {...users} />

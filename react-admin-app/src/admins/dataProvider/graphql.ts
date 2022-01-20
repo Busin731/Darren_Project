@@ -26,6 +26,8 @@ const getGqlResource = (resource: string) => {
     }
 };
 
+
+
 const customBuildQuery: BuildQueryFactory = introspectionResults => {
     const buildQuery = buildQueryFactory(introspectionResults);
 
@@ -106,6 +108,20 @@ const customBuildQuery: BuildQueryFactory = introspectionResults => {
     };
 };
 
+/**
+ * Convert a `File` object returned by the upload input into a base 64 string.
+ * That's not the most optimized way to store images in production, but it's
+ * enough to illustrate the idea of data provider decoration.
+ */
+ const convertFileToBase64 = (file:any) =>
+    new Promise((resolve, reject) => {
+        const reader = new FileReader()
+        reader.readAsDataURL(file.rawFile)
+
+        reader.onload = () => resolve(reader.result)
+        reader.onerror = reject
+ })
+
 const graphql = async () => {
     const dataProvider = await buildApolloClient({
         clientOptions: {
@@ -124,6 +140,26 @@ const graphql = async () => {
         get: (target, name) => {
             if (typeof name === 'symbol' || name === 'then') {
                 return;
+            }
+            if ( name === 'update' || name === 'create') {
+                
+                return async (resource: string, params: any) => {
+                    if (resource === 'notifications'){
+                        const { data, ...rest_params } = params
+                        if (data.image.rawFile){
+                            return convertFileToBase64(data.image).then(base64 => {
+                                console.log(base64);
+                                return dataProvider[name](getGqlResource(resource), {
+                                    ...rest_params,
+                                    data: { ...data, image: base64 }
+                                  }); 
+                            })
+                        }
+                        else {
+                            return dataProvider[name](getGqlResource(resource), params);
+                        }
+                    }
+                };
             }
             return async (resource: string, params: any) => {
                 return dataProvider[name](getGqlResource(resource), params);
