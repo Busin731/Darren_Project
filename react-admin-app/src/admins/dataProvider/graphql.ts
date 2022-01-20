@@ -148,10 +148,9 @@ const graphql = async () => {
                         const { data, ...rest_params } = params
                         if (data.image.rawFile){
                             return convertFileToBase64(data.image).then(base64 => {
-                                console.log(base64);
                                 return dataProvider[name](getGqlResource(resource), {
                                     ...rest_params,
-                                    data: { ...data, image: base64 }
+                                    data: { ...data, image:{ 'src':base64} }
                                   }); 
                             })
                         }

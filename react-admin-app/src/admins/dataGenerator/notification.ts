@@ -21,7 +21,9 @@ const notifications = (db: Db) => {
             [3,3,3,3,3,3,3,3,3,3,3]
         )
         let index = randomInt(1,10);
-        const image = 'https://marmelab.com/posters/' + category + '-' + index + '.jpeg';
+        const image = {
+            'src': 'https://marmelab.com/posters/' + category + '-' + index + '.jpeg'
+        }
         const publishAt = randomDate();
         const expireAt = new Date();
 

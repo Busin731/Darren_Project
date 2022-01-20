@@ -4,7 +4,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
-import { ImageField } from 'react-admin';
+import { useSelector } from 'react-redux';
+import { NotificationState } from '../../admins/type';
 
 const useStyles = makeStyles({
   root: {
@@ -20,17 +21,21 @@ const useStyles = makeStyles({
           width: '360px',
           margin: '0px !important',
       }
+  },
+  rawImg: {
+    width: '360px',
   }
 });
 
-const Preview = (props: any) => {
+const Preview = (props : any) => {
     const classes = useStyles();
-    const { record } = props;
+    const imageUrl = useSelector((state: NotificationState) => state.imageUrl)
+    const { title, body } = props;
     return (
             <Card className={classes.root}>
                 <CardContent>
                     <Typography gutterBottom variant="h5" component="h2">
-                        { record.title }
+                        { title }
                     </Typography>
                     <ShowMoreText
                         lines={3}
@@ -40,12 +45,12 @@ const Preview = (props: any) => {
                         less={<div className={ classes.showButton }>
                                 Show Less
                         </div>}
-                        anchorClass=''
-                        keepNewLines={true}
                     >
-                    { record.body }
+                    { body }
                     </ShowMoreText>
-                    <ImageField  className={classes.img} source='image'/>
+                    {
+                     <img  className={classes.rawImg}  src={imageUrl} alt=""/>
+                    } 
                 </CardContent>
             </Card>
     )

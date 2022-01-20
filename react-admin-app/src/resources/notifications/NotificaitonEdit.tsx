@@ -45,7 +45,6 @@ const NotificationForm = (props: any) => {
         showfor: ''
     })
     const handleChange = (name: any) => (event: any) => {
-        console.log(event)
         if (name === 'image'){
             value.image = event;
             setValue({ ...value})
@@ -229,18 +228,9 @@ const NotificationForm = (props: any) => {
                                 </Grid>
                                 <Grid item lg={4}>
                                     <Typography variant="h6" gutterBottom>
-                                            PREVIEW
-                                        </Typography>
-                                    <Box 
-                                        display={{ xs: 'block', sm: 'flex' }}
-                                        maxWidth="25em">
-                                        <Box
-                                            flex={1}
-                                            mr={{ xs: 0, sm: '0.5em' }}
-                                        >
-                                        </Box>
-                                        <Preview {...props}/> 
-                                    </Box>
+                                        PREVIEW
+                                    </Typography>
+                                    <Preview {...value}/> 
                                 </Grid>
                             </Grid>
                         </CardContent>
