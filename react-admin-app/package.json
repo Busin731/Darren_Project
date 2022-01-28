@@ -66,6 +66,9 @@
       "last 1 safari version"
     ]
   },
+  "resolutions": {
+    "mini-css-extract-plugin": "2.4.5"
+  },
   "devDependencies": {
     "@types/classnames": "^2.3.1",
     "@types/react-router-dom": "^5.3.2"
