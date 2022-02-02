@@ -22,8 +22,14 @@ const notifications = (db: Db) => {
         )
         let index = randomInt(1,10);
         const image = {
-            'src': 'https://marmelab.com/posters/' + category + '-' + index + '.jpeg'
+            'src': 'https://marmelab.com/posters/' + category + '-' + 
+            index + '.jpeg'
         }
+        let uri = weightedArrayElement(
+            ['invoices', 'products', 'commands', 'categories','customers', 'segments'],[3,3,3,3,3,3]
+        )
+        const link = `https://marmelab.com/react-admin-demo/#/${uri}`;
+        const buttonLabel = 'Link to me'
         const publishAt = randomDate();
         const expireAt = new Date();
 
@@ -35,6 +41,8 @@ const notifications = (db: Db) => {
             readCount,
             body,
             image,
+            buttonLabel,
+            link,
             publishAt,
             expireAt
         }

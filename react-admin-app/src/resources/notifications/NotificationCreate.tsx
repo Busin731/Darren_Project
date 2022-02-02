@@ -12,9 +12,10 @@ import {
 import RichTextInput from 'ra-input-rich-text';
 import PreviewImage from "./PreviewImage";
 import { Box, Card, CardContent, Typography } from '@material-ui/core';
-// import Preview from "./Preview";
+import Preview from "./Preview";
 import Grid from '@material-ui/core/Grid';
 import { useState, useEffect } from "react";
+import './ratextarea.css';
 
 const Title = (props: any) => {
     const { record } = props;
@@ -27,8 +28,8 @@ const Title = (props: any) => {
 
 const NotificationCreate = (props: CreateProps) => {
     return (
-        <Create title={ <Title/> } {...props}>
-            <NotificationForm/>
+        <Create title={<Title />} {...props}>
+            <NotificationForm />
         </Create>
     )
 };
@@ -42,17 +43,17 @@ const NotificationForm = (props: any) => {
         title: "",
         body: "",
         image: "",
+        buttonLabel: "",
         showfor: ''
     })
     const handleChange = (name: any) => (event: any) => {
-        console.log(event)
-        if (name === 'image'){
+        if (name === 'image') {
             value.image = event;
-            setValue({ ...value})
+            setValue({ ...value })
         }
-        else if(name === 'body'){
+        else if (name === 'body') {
             value.body = event;
-            setValue({ ...value})
+            setValue({ ...value })
         }
         else {
             setValue({ ...value, [name]: event.target.value })
@@ -66,7 +67,7 @@ const NotificationForm = (props: any) => {
         value.title = record.title;
         setValue({ ...value });
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    },[])
+    }, [])
 
     return (
         <FormWithRedirect
@@ -81,7 +82,7 @@ const NotificationForm = (props: any) => {
                                         <Typography variant="h6" gutterBottom>
                                             SCOPE
                                         </Typography>
-                                        <Box 
+                                        <Box
                                             display={{ xs: 'block', sm: 'flex' }}
                                             maxWidth="25em">
                                             <Box
@@ -100,7 +101,7 @@ const NotificationForm = (props: any) => {
                                         <Typography variant="h6" gutterBottom>
                                             TITLE
                                         </Typography>
-                                        <Box 
+                                        <Box
                                             display={{ xs: 'block', sm: 'flex' }}
                                             maxWidth="50em">
                                             <Box
@@ -119,7 +120,7 @@ const NotificationForm = (props: any) => {
                                         <Typography variant="h6" gutterBottom>
                                             BODY
                                         </Typography>
-                                        <Box 
+                                        <Box
                                             display={{ xs: 'block', sm: 'flex' }}
                                             maxWidth="50em">
                                             <Box
@@ -136,9 +137,28 @@ const NotificationForm = (props: any) => {
                                             </Box>
                                         </Box>
                                         <Typography variant="h6" gutterBottom>
+                                            Link(optional)
+                                        </Typography>
+                                        <Box
+                                            display={{ xs: 'block', sm: 'flex' }}
+                                            maxWidth="50em">
+                                            <Box
+                                                flex={1}
+                                                mr={{ xs: 0, sm: '0.5em' }}
+                                            >
+                                                <TextInput
+                                                    source="link"
+                                                    type={"url"}
+                                                    onChange={handleChange('link')}
+                                                    resource="notifications"
+                                                    fullWidth
+                                                />
+                                            </Box>
+                                        </Box>
+                                        <Typography variant="h6" gutterBottom>
                                             IMAGE
                                         </Typography>
-                                        <Box 
+                                        <Box
                                             display={{ xs: 'block', sm: 'flex' }}
                                             maxWidth="25em">
                                             <Box
@@ -152,13 +172,32 @@ const NotificationForm = (props: any) => {
                                                 resource="notifications"
                                                 fullWidth
                                             >
-                                                <PreviewImage source="src"/>
+                                                <PreviewImage source="src" />
                                             </ImageInput>
+                                        </Box>
+                                        <Typography variant="h6" gutterBottom>
+                                            ButtonLabel
+                                        </Typography>
+                                        <Box
+                                            display={{ xs: 'block', sm: 'flex' }}
+                                            maxWidth="25em">
+                                            <Box
+                                                flex={1}
+                                                mr={{ xs: 0, sm: '0.5em' }}
+                                            >
+                                                <TextInput
+                                                    source="buttonLabel"
+                                                    onChange={handleChange('buttonLabel')}
+                                                    resource="notifications"
+                                                    validate={requiredValidate}
+                                                    fullWidth
+                                                />
+                                            </Box>
                                         </Box>
                                         <Typography variant="h6" gutterBottom>
                                             PUBLISH AT
                                         </Typography>
-                                        <Box 
+                                        <Box
                                             display={{ xs: 'block', sm: 'flex' }}
                                             maxWidth="25em">
                                             <Box
@@ -173,45 +212,45 @@ const NotificationForm = (props: any) => {
                                             />
                                         </Box>
                                         {/* <Typography variant="h6" gutterBottom>
-                                            SHOW FOR
-                                        </Typography>
-                                        <Box 
-                                            display={{ xs: 'block', sm: 'flex' }}
-                                            maxWidth="25em">
-                                            <Box
-                                                flex={1}
-                                                mr={{ xs: 0, sm: '0.5em' }}
-                                            >
-                                            </Box>
-                                            <SelectInput
-                                                resource="notifications"
-                                                source="showFor"
-                                                fullWidth
-                                                choices={[
-                                                    {
-                                                        id: 'one_day',
-                                                        name: '1 day',
-                                                    },
-                                                    {
-                                                        id: 'one_week',
-                                                        name: '1 week',
-                                                    },
-                                                    {
-                                                        id: 'one_month',
-                                                        name: '1 month',
-                                                    },
-                                                    {
-                                                        id: 'custom',
-                                                        name: 'custom',
-                                                        disabled: true,
-                                                    },
-                                                ]}
-                                            />
-                                        </Box> */}
+                                                SHOW FOR
+                                            </Typography>
+                                            <Box 
+                                                display={{ xs: 'block', sm: 'flex' }}
+                                                maxWidth="25em">
+                                                <Box
+                                                    flex={1}
+                                                    mr={{ xs: 0, sm: '0.5em' }}
+                                                >
+                                                </Box>
+                                                <SelectInput
+                                                    resource="notifications"
+                                                    source="showFor"
+                                                    fullWidth
+                                                    choices={[
+                                                        {
+                                                            id: 'one_day',
+                                                            name: '1 day',
+                                                        },
+                                                        {
+                                                            id: 'one_week',
+                                                            name: '1 week',
+                                                        },
+                                                        {
+                                                            id: 'one_month',
+                                                            name: '1 month',
+                                                        },
+                                                        {
+                                                            id: 'custom',
+                                                            name: 'custom',
+                                                            disabled: true,
+                                                        },
+                                                    ]}
+                                                />
+                                            </Box> */}
                                         <Typography variant="h6" gutterBottom>
                                             EXPIRE AT
                                         </Typography>
-                                        <Box 
+                                        <Box
                                             display={{ xs: 'block', sm: 'flex' }}
                                             maxWidth="25em">
                                             <Box
@@ -225,7 +264,29 @@ const NotificationForm = (props: any) => {
                                                 fullWidth
                                             />
                                         </Box>
+                                        <TextInput
+                                            source="status"
+                                            onChange={handleChange('status')}
+                                            style={{ display: 'none' }}
+                                            defaultValue="Draft"
+                                            resource="notifications"
+                                            fullWidth
+                                        />
+                                        <TextInput
+                                            source="readCount"
+                                            style={{ display: 'none' }}
+                                            defaultValue="0"
+                                            onChange={handleChange('readCount')}
+                                            resource="notifications"
+                                            fullWidth
+                                        />
                                     </Box>
+                                </Grid>
+                                <Grid item lg={4}>
+                                    <Typography variant="h6" gutterBottom>
+                                        PREVIEW
+                                    </Typography>
+                                    <Preview {...value} />
                                 </Grid>
                             </Grid>
                         </CardContent>

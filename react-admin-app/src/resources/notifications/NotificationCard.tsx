@@ -4,15 +4,13 @@ import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
-import { useSelector } from 'react-redux';
-import { NotificationState } from '../../admins/type';
 import Button from '@material-ui/core/Button';
 import { Link } from 'react-router-dom';
-import { useState } from 'react';
 
 const useStyles = makeStyles({
   root: {
     width: '400px',
+    marginBottom:'10px'
   },
   showButton: {
     marginTop: '13px',
@@ -36,21 +34,9 @@ const useStyles = makeStyles({
 });
 
 
-const Preview = (props : any) => {
+const NotificationCard = (props : any) => {
     const classes = useStyles();
-    const imageUrl = useSelector((state: NotificationState) => state.imageUrl)
-    const { title, body, buttonLabel,basePath,record } = props;
-    const [id, setId] = useState(0);
-
-    React.useEffect(() => {
-      if(record!== undefined){
-        setId(record.id);
-      }
-      else{
-        setId(0);
-      }
-    },[record])
-
+    const {id, title, body, buttonLabel,basePath,image } = props.record;
     return (
             <Card className={classes.root}>
                 <CardContent>
@@ -69,13 +55,12 @@ const Preview = (props : any) => {
                     { body }
                     </ShowMoreText>
                     {
-                     <img  className={classes.rawImg}  src={imageUrl} alt=""/>
+                     <img  className={classes.rawImg}  src={image.src} alt=""/>
                     } 
                     {
                       buttonLabel.trim().length>0&&(
                         <Button
                             component={Link}
-                            disabled={record === undefined}
                             color = {'primary'}
                             className={classes.link}
                             to={{ pathname: `${basePath}/${id}` }}
@@ -90,5 +75,5 @@ const Preview = (props : any) => {
     )
 }
 
-export default Preview;
+export default NotificationCard;
 

@@ -3,7 +3,7 @@ import { Drawer } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import CommentTopBar from "./DrawerTopBar";
 import CardList from "./CardList";
-import { DrawerListProps } from "./types";
+import { DrawerListProps } from "../types";
 const useStyles = makeStyles({
 	drawerContent: {
 		width: 400,

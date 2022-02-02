@@ -1,17 +1,25 @@
 import * as React from 'react';
 import {
      List ,
-     Datagrid,
-     TextField,
-     RichTextField,
      SearchInput,
      SelectInput,
-     ListProps
+     ListProps,
+     TopToolbar,
+     ExportButton,
+     CreateButton,
+     FilterButton
 } from 'react-admin';
-import RunField from './RunField';
-import NotificationAction from './NotificationAction';
-import StatusField from './StatusField';
+import ViewAsFeed from './ViewAsFeed';
+import NotificationDataGrid from './NotificationDatagrid';
 
+const ListActions = () => (
+     <TopToolbar>
+          <ViewAsFeed/>
+          <FilterButton/>
+          <CreateButton basePath="/notifications" />
+          <ExportButton />
+     </TopToolbar>
+ );
 const Filters = [
      <SearchInput source='q' alwaysOn/>,
      <SelectInput source="status" choices={[
@@ -21,21 +29,17 @@ const Filters = [
       ]} />
 ]
 
+
+
 const NotificationList = (props : ListProps) => {
      return(
           <List
                {...props}
                sort={{ field: 'publishAt', order: 'DESC' }}
                filters={Filters}
+               actions={<ListActions/>}
           >
-               <Datagrid >
-                    <TextField source='id' label={'Id'}/>
-                    <TextField source='scope' label={'Scope'}/>
-                    <RichTextField  source='body' label={'Notifications'}/>
-                    <StatusField/>
-                    <RunField/>
-                    <NotificationAction/>
-               </Datagrid>
+               <NotificationDataGrid/>
           </List>
      )
 }

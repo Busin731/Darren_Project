@@ -1,7 +1,7 @@
 import { useEffect, useState, Fragment } from "react";
 import { Identifier, useDataProvider, useGetList, useNotify } from "react-admin";
 import CommentCard from "./CommentCard";
-import { CardListProps } from "./types";
+import { CardListProps } from "../types";
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme: Theme) =>

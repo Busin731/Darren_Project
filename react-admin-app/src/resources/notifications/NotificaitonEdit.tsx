@@ -15,6 +15,18 @@ import { Box, Card, CardContent, Typography } from '@material-ui/core';
 import Preview from "./Preview";
 import Grid from '@material-ui/core/Grid';
 import { useState, useEffect } from "react";
+import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
+import './ratextarea.css';
+
+const useStyles = makeStyles((theme: Theme) =>
+    createStyles({
+        editor: {
+            '& .ql-editor': {
+                minHight: '300px'
+            }
+        },
+    }),
+);
 
 const Title = (props: any) => {
     const { record } = props;
@@ -36,12 +48,14 @@ const NotificationEdit = (props: EditProps) => {
 const NotificationForm = (props: any) => {
 
     const { record } = props;
-
+    const classes = useStyles();
     const [value, setValue] = useState({
         scope: "",
         title: "",
         body: "",
+        link: "",
         image: "",
+        buttonLabel: "",
         showfor: ''
     })
     const handleChange = (name: any) => (event: any) => {
@@ -63,6 +77,7 @@ const NotificationForm = (props: any) => {
         value.body = record.body;
         value.image = record.image;
         value.title = record.title;
+        value.buttonLabel = record.buttonLabel;
         setValue({ ...value });
         // eslint-disable-next-line react-hooks/exhaustive-deps
     },[])
@@ -123,11 +138,33 @@ const NotificationForm = (props: any) => {
                                                 maxWidth="50em">
                                                 <Box
                                                     flex={1}
+                                                    className={classes.editor}
                                                     mr={{ xs: 0, sm: '0.5em' }}
                                                 >
                                                     <RichTextInput
                                                         source="body"
+                                                        className={classes.editor}
                                                         onChange={handleChange('body')}
+                                                        resource="notifications"
+                                                        validate={requiredValidate}
+                                                        fullWidth
+                                                    />
+                                                </Box>
+                                            </Box>
+                                            <Typography variant="h6" gutterBottom>
+                                                Link(optional)
+                                            </Typography>
+                                            <Box 
+                                                display={{ xs: 'block', sm: 'flex' }}
+                                                maxWidth="50em">
+                                                <Box
+                                                    flex={1}
+                                                    mr={{ xs: 0, sm: '0.5em' }}
+                                                >
+                                                    <TextInput
+                                                        source="link"
+                                                        type={'url'}
+                                                        onChange={handleChange('link')}
                                                         resource="notifications"
                                                         validate={requiredValidate}
                                                         fullWidth
@@ -153,6 +190,25 @@ const NotificationForm = (props: any) => {
                                                 >
                                                     <PreviewImage source="src"/>
                                                 </ImageInput>
+                                            </Box>
+                                            <Typography variant="h6" gutterBottom>
+                                                ButtonLabel
+                                            </Typography>
+                                            <Box 
+                                                display={{ xs: 'block', sm: 'flex' }}
+                                                maxWidth="25em">
+                                                <Box
+                                                    flex={1}
+                                                    mr={{ xs: 0, sm: '0.5em' }}
+                                                >
+                                                    <TextInput
+                                                        source="buttonLabel"
+                                                        onChange={handleChange('buttonLabel')}
+                                                        resource="notifications"
+                                                        validate={requiredValidate}
+                                                        fullWidth
+                                                    />
+                                                </Box>
                                             </Box>
                                             <Typography variant="h6" gutterBottom>
                                                 PUBLISH AT
@@ -230,7 +286,7 @@ const NotificationForm = (props: any) => {
                                     <Typography variant="h6" gutterBottom>
                                         PREVIEW
                                     </Typography>
-                                    <Preview {...value}/> 
+                                    <Preview {...value} {...props}/> 
                                 </Grid>
                             </Grid>
                         </CardContent>

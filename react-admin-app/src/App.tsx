@@ -5,7 +5,7 @@ import users from "./resources/users";
 import comments from "./resources/comments";
 import notifications from "./resources/notifications";
 import dataProviderFactory from "./admins/dataProvider";
-import { imageSelectReducer } from "./admins/reducers/notificationReducer";
+import { imageSelectReducer, viewAsFeedReducer } from "./admins/reducers/notificationReducer";
 
 const dataProvider = dataProviderFactory(process.env.REACT_APP_DATA_PROVIDER || "");
 
@@ -14,7 +14,8 @@ const App = () => (
     title="CORE Platform"
     dataProvider={dataProvider}
     customReducers={{
-      imageUrl: imageSelectReducer
+      imageUrl: imageSelectReducer,
+      isViewAsFeed: viewAsFeedReducer
     }}
   >
     <Resource name="posts" {...posts} />

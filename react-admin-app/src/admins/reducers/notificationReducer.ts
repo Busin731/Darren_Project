@@ -1,6 +1,11 @@
 import { Reducer } from "react";
-import { selectedImage, SELECTED_IMAGE } from "../actions";
-import {SelectedImage} from '../type';
+import { 
+    selectedImage, 
+    SELECTED_IMAGE,
+    viewAsFeed,
+    VIEW_AS_FEED 
+} from "../actions";
+import {SelectedImage, ViewAsFeed} from '../type';
 // Image SelectImage
 type SelectImageState = SelectedImage;
 type SelectImageAction = 
@@ -12,6 +17,21 @@ export const imageSelectReducer: Reducer<SelectImageState, SelectImageAction> = 
     action
 ) => {
     if ( action.type === SELECTED_IMAGE ) {
+        return action.payload;
+    }
+    return previousState
+}
+// ViewAsFeed
+type ViewAsFeedState = ViewAsFeed;
+type ViewAsFeedAction = 
+    | ReturnType<typeof viewAsFeed>
+    | { type: 'OTHER_ACTION'; payload?: any };
+
+export const viewAsFeedReducer: Reducer<ViewAsFeedState, ViewAsFeedAction> = (
+    previousState = 'false',
+    action
+) => {
+    if ( action.type === VIEW_AS_FEED ) {
         return action.payload;
     }
     return previousState
